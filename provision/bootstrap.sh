@@ -10,7 +10,7 @@ sudo yum -y install git
 sudo yum -y install yum-plugin-replace
 sudo rpm -Uvh https://mirror.webtatic.com/yum/el6/latest.rpm
 sudo yum -y install nginx
-sudo yum -y install php55w php55w-opcache php55w-common php55w-cli php55w-mcrypt php55w-mysql php55w-pdo php55w-fpm php55w-xml php55w-mbstring
+sudo yum -y install php55w php55w-devel php55w-opcache php55w-common php55w-cli php55w-mcrypt php55w-mysql php55w-pdo php55w-fpm php55w-xml php55w-mbstring php55w-pecl-xdebug
 sudo yum -y install vim
 
 #configure mysql pass for phpMyAdmin not accepting an empty password
