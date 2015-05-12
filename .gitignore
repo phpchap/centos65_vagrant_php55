@@ -1,2 +1,8 @@
 ### Vagrant ###
 .vagrant/
+
+# symfony
+application/app/cache
+application/app/logs
+application/vendor
+

@@ -9,15 +9,28 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Every Vagrant virtual environment requires a box to build off of.
   config.vm.box = "chef/centos-6.5"
 
-
-  # Create a forwarded port mapping which allows access to a specific port
-  # within the machine from a port on the host machine. In the example below,
-  # accessing "localhost:8080" will access port 80 on the guest machine.
-  # config.vm.network "forwarded_port", guest: 80, host: 80
   config.vm.network :private_network, ip: "33.33.33.20"
   config.ssh.forward_agent = true
 
   config.vm.provision :shell, path: "provision/bootstrap.sh"
+
+  # Example of shared folder
+  config.vm.synced_folder "application", "/var/www/logistics-engine", id: "application", :nfs => true
+
+  if Vagrant.has_plugin?("vagrant-cachier")
+    config.cache.scope = :machine
+
+    config.cache.synced_folder_opts = {
+      type: :nfs,
+      mount_options: ['rw', 'vers=3', 'tcp', 'nolock']
+    }
+
+    config.cache.enable :generic, {
+      "cache"  => { cache_dir: "/var/www/logistics-engine/app/cache" },
+      "logs"   => { cache_dir: "/var/www/logistics-engine/app/logs" },
+      "vendor" => { cache_dir: "/var/www/logistics-engine/vendor" },
+    }
+  end
 
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
